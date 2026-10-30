@@ -1,0 +1,211 @@
+:root {
+    --bg: #f4f1ea;
+    --sky: #dff1fb;
+    --ground: #c8b88a;
+    --line: #8a7a4e;
+    --player: #2e7d5b;
+    --obs: #d64550;
+    --text: #222;
+    --panel: rgba(255, 255, 255, .85);
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px)
+}
+
+@media (prefers-color-scheme:dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #15171c;
+        --sky: #1d2733;
+        --ground: #3b3626;
+        --line: #6e6340;
+        --player: #5fd0a0;
+        --obs: #ff6b76;
+        --text: #f1f2f5;
+        --panel: rgba(20, 22, 26, .85);
+        color-scheme: dark
+    }
+}
+
+:root[data-theme="dark"] {
+    --bg: #15171c;
+    --sky: #1d2733;
+    --ground: #3b3626;
+    --line: #6e6340;
+    --player: #5fd0a0;
+    --obs: #ff6b76;
+    --text: #f1f2f5;
+    --panel: rgba(20, 22, 26, .85);
+    color-scheme: dark
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.3rem
+}
+
+#game {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    height: 220px;
+    background: var(--sky);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--line);
+    touch-action: manipulation;
+    cursor: pointer
+}
+
+#ground {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 30px;
+    background: var(--ground);
+    border-top: 3px solid var(--line)
+}
+
+#player {
+    position: absolute;
+    left: 40px;
+    bottom: 30px;
+    width: 34px;
+    height: 38px;
+    background: var(--player);
+    border-radius: 8px 8px 4px 4px
+}
+
+#player::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff
+}
+
+.obstacle {
+    position: absolute;
+    bottom: 30px
+}
+
+.cactus {
+    position: absolute;
+    background: #3c9d5d;
+    border-radius: 8px 8px 2px 2px
+}
+
+.obstacle.cactus::before,
+.obstacle.cactus::after {
+    content: "";
+    position: absolute;
+    top: 25%;
+    width: 8px;
+    height: 32%;
+    background: #3c9d5d;
+    border-radius: 6px
+}
+
+.obstacle.cactus::before {
+    left: -8px
+}
+
+.obstacle.cactus::after {
+    right: -8px;
+    top: 40%
+}
+
+.cluster i {
+    bottom: 0
+}
+
+.rock {
+    background: #8b8f98;
+    border-radius: 50% 50% 4px 4px / 85% 85% 4px 4px;
+    box-shadow: inset -6px -4px 0 rgba(0, 0, 0, .18)
+}
+
+.spike {
+    background: #d64550;
+    clip-path: polygon(0 100%, 50% 0, 100% 100%)
+}
+
+.stump {
+    background: #8a5a2b;
+    border-radius: 3px;
+    box-shadow: inset -5px 0 0 rgba(0, 0, 0, .2)
+}
+
+.stump::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -4px;
+    height: 9px;
+    background: #b98550;
+    border-radius: 50%
+}
+
+#score {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-weight: 700;
+    font-size: 1.1rem
+}
+
+#overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--panel);
+    text-align: center
+}
+
+#overlay.hidden {
+    display: none
+}
+
+#overlay h2 {
+    margin: 0
+}
+
+p {
+    margin: 0;
+    color: inherit
+}
+
+.hint {
+    font-size: .9rem;
+    opacity: .75
+}
