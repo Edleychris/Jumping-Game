@@ -1,12 +1,14 @@
 :root {
-    --bg: #f4f1ea;
-    --sky: #dff1fb;
-    --ground: #c8b88a;
-    --line: #8a7a4e;
-    --player: #2e7d5b;
-    --obs: #d64550;
-    --text: #222;
-    --panel: rgba(255, 255, 255, .85);
+    --bg: #f6f2e8;
+    --bg-accent: #e9e2d2;
+    --sky: #d9eff8;
+    --sky-accent: #eff9fc;
+    --ground: #c9b47d;
+    --line: #806f43;
+    --player: #287556;
+    --obs: #cf4651;
+    --text: #28251f;
+    --panel: rgba(255, 253, 248, .88);
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px)
@@ -15,9 +17,11 @@
 @media (prefers-color-scheme:dark) {
     :root:not([data-theme="light"]) {
         --bg: #15171c;
-        --sky: #1d2733;
+        --bg-accent: #20242b;
+        --sky: #1c2936;
+        --sky-accent: #26394a;
         --ground: #3b3626;
-        --line: #6e6340;
+        --line: #827448;
         --player: #5fd0a0;
         --obs: #ff6b76;
         --text: #f1f2f5;
@@ -28,9 +32,11 @@
 
 :root[data-theme="dark"] {
     --bg: #15171c;
-    --sky: #1d2733;
+    --bg-accent: #20242b;
+    --sky: #1c2936;
+    --sky-accent: #26394a;
     --ground: #3b3626;
-    --line: #6e6340;
+    --line: #827448;
     --player: #5fd0a0;
     --obs: #ff6b76;
     --text: #f1f2f5;
@@ -49,31 +55,33 @@ body {
 }
 
 body {
-    background: var(--bg);
+    background: linear-gradient(180deg, var(--bg), var(--bg-accent));
     color: var(--text);
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    padding: 16px
+    gap: clamp(12px, 2vw, 18px);
+    padding: clamp(12px, 3vw, 24px)
 }
 
 h1 {
     margin: 0;
-    font-size: 1.3rem
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    letter-spacing: .03em
 }
 
 #game {
     position: relative;
     width: 100%;
-    max-width: 640px;
-    height: 220px;
-    background: var(--sky);
-    border-radius: 12px;
+    max-width: 680px;
+    height: clamp(210px, 34vw, 245px);
+    background: linear-gradient(180deg, var(--sky-accent), var(--sky));
+    border-radius: 18px;
     overflow: hidden;
     border: 2px solid var(--line);
+    box-shadow: 0 12px 30px rgba(75, 61, 34, .16);
     touch-action: manipulation;
     cursor: pointer
 }
@@ -95,7 +103,8 @@ h1 {
     width: 34px;
     height: 38px;
     background: var(--player);
-    border-radius: 8px 8px 4px 4px
+    border-radius: 8px 8px 4px 4px;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, .12)
 }
 
 #player::after {
@@ -177,7 +186,8 @@ h1 {
     top: 10px;
     right: 14px;
     font-weight: 700;
-    font-size: 1.1rem
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .35)
 }
 
 #overlay {
@@ -189,7 +199,8 @@ h1 {
     justify-content: center;
     gap: 6px;
     background: var(--panel);
-    text-align: center
+    text-align: center;
+    padding: 20px
 }
 
 #overlay.hidden {
@@ -208,4 +219,28 @@ p {
 .hint {
     font-size: .9rem;
     opacity: .75
+}
+
+@media (max-width: 480px) {
+    body {
+        gap: 10px
+    }
+
+    #game {
+        height: 210px;
+        border-radius: 16px
+    }
+
+    #score {
+        top: 8px;
+        right: 10px
+    }
+
+    #overlay h2 {
+        font-size: 1.35rem
+    }
+
+    .hint {
+        font-size: .82rem
+    }
 }
